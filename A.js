@@ -24,7 +24,6 @@ function assemblePuzzle(pieces) {
     .sort((a, b) => (a.top < b.top && -1) || (a.top > b.top && 1) || 0);
 
   let filteredArr2 = filteredArr.concat(filteredArr1);
-  console.log(filteredArr);
 
   let finals = [];
   for (let i = 0; i < rows; i++) {
@@ -33,6 +32,7 @@ function assemblePuzzle(pieces) {
       finals[i][c] = filteredArr2[i * rows + c];
     }
   }
+
   return finals;
 }
 
