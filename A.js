@@ -9,10 +9,25 @@ function assemblePuzzle(pieces) {
     return res;
   }
 
+  function compare(a, b) {
+    console.log(a);
+    console.log(b);
+
+    if (a.left < b.left) {
+      return -1;
+    }
+    if (a.left > b.left) {
+      return 1;
+    }
+    // a должно быть равным b
+    return 0;
+  }
+
   let puzzle = [],
     buffArr = [],
     columns = columnsF();
-  let rows = pieces.length / columns;
+  let rows = 1;
+  rows = pieces.length / columns;
   console.log(columns, rows);
 
   let filteredArr = pieces
@@ -25,15 +40,33 @@ function assemblePuzzle(pieces) {
 
   let filteredArr2 = filteredArr.concat(filteredArr1);
 
-  let finals = [];
-  for (let i = 0; i < rows; i++) {
-    finals[i] = [];
-    for (let c = 0; c < columns; c++) {
-      finals[i][c] = filteredArr2[i * rows + c];
+  if (rows == 1) {
+    console.log(rows + " - rows");
+    let arr3 = [],
+      prev = false;
+    for (let i = 0; i < filteredArr2.length; i++) {
+      arr3[arr3.length] = filteredArr2.find((el) => el.left == prev);
+      console.log(arr3);
+      prev++;
     }
+    return arr3;
+  } else if (columns == 1) {
+    console.log(columns + " - columns");
+    for (let i = 0; i < filteredArr2.length; i++) {
+      console.log("column1");
+    }
+  } else {
+    let finals = [],
+      prev = 0;
+    for (let r = 0; r < rows; r++) {
+      finals[r] = [];
+      for (let c = 0; c < columns; c++) {
+        finals[r][c] = filteredArr2[prev];
+        prev++;
+      }
+    }
+    return finals;
   }
-
-  return finals;
 }
 
 console.log(
@@ -90,3 +123,32 @@ console.log(
     { top: false, left: "9", right: "10", bottom: false },
   ])
 );
+
+const puzzle1 = [
+  { top: false, left: "4", right: false, bottom: "e" },
+  { top: "q", left: "17", right: "18", bottom: false },
+  { top: "c", left: "6", right: "7", bottom: "h" },
+  { top: false, left: false, right: "1", bottom: "a" },
+  { top: "j", left: "12", right: false, bottom: "o" },
+  { top: "k", left: false, right: "13", bottom: "p" },
+  { top: "o", left: "16", right: false, bottom: "t" },
+  { top: "m", left: "14", right: "15", bottom: "r" },
+  { top: false, left: "3", right: "4", bottom: "d" },
+  { top: "f", left: false, right: "9", bottom: "k" },
+  { top: "d", left: "7", right: "8", bottom: "i" },
+  { top: "r", left: "18", right: "19", bottom: false },
+  { top: "b", left: "5", right: "6", bottom: "g" },
+  { top: "g", left: "9", right: "10", bottom: "l" },
+  { top: false, left: "2", right: "3", bottom: "c" },
+  { top: false, left: "1", right: "2", bottom: "b" },
+  { top: "s", left: "19", right: "20", bottom: false },
+  { top: "t", left: "20", right: false, bottom: false },
+  { top: "e", left: "8", right: false, bottom: "j" },
+  { top: "i", left: "11", right: "12", bottom: "n" },
+  { top: "l", left: "13", right: "14", bottom: "q" },
+  { top: "p", left: false, right: "17", bottom: false },
+  { top: "a", left: false, right: "5", bottom: "f" },
+  { top: "h", left: "10", right: "11", bottom: "m" },
+  { top: "n", left: "15", right: "16", bottom: "s" },
+];
+console.log(assemblePuzzle(puzzle1));
