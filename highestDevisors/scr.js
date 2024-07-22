@@ -17,11 +17,13 @@ function procArrInt(listNum) {
       (a.devisors < b.devisors && 1) || (a.devisors > b.devisors && -1) || 0
   );
 
-  console.log(arrOfNum);
   const rating = arrOfNum.filter((el) => el.devisors == arrOfNum[0].devisors);
   const primes = arrOfNum.filter((el) => el.devisors <= 2);
   let ratingNums = [];
-  rating.forEach((el) => (ratingNums[ratingNums.length] = el.num));
+  for (i = 0; i < rating.length; i++) {
+    ratingNums[ratingNums.length] = rating[i].num;
+  }
+  ratingNums = ratingNums.sort((a, b) => (a > b && 1) || (a < b && -1) || 0);
   return [listNum.length, primes.length, [arrOfNum[0].devisors, ratingNums]];
 }
 
